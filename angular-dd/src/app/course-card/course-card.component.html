@@ -1,13 +1,18 @@
 <div class="course-card">
-  <div class="course-title">Angular Core Deep Dive</div>
-  <img
-    width="300"
-    alt="Angular Logo"
-    src="https://s3-us-west-1.amazonaws.com/angular-university/course-images/angular-core-in-depth-small.png"
-  />
-
-  <div class="course-description">
-    A detailed walk-through of the most important part of Angular - the Core and
-    Common modules.
+  <div class="course-title">
+    {{ cardIndex || "" + " " + course.description }}
   </div>
+
+  <ng-template #blankImage>
+    <p class="warn">{{ course.description }} has no image available yet</p>
+    <img src="/assets/empty-image.png" />
+  </ng-template>
+
+  <ng-content
+    select="course-image"
+    *ngIf="course.iconUrl; else blankImage"
+  ></ng-content>
+  <ng-content select=".course-description"></ng-content>
+
+  <button (click)="onCourseView()">View Course</button>
 </div>
